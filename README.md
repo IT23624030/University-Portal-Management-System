@@ -16,9 +16,15 @@ UniHub is an enterprise-grade platform built to solve the fragmentation of unive
 
 📊 Operational Analytics: Real-time telemetry and reporting for administrative transparency.
 
+
+
 🛠️ Tech Stack:
 Frontend: React 19, Tailwind CSS v4, Framer Motion (for premium animations), Vite.
+
 Backend: Node.js, Express.js, Socket.io (Real-time updates).
+
 Database: MongoDB with Mongoose ODM.
+
 AI Integration: Google Gemini & OpenAI for smart indexing and assistance.
+
 Notifications: Nodemailer (SMTP) and automated CRON jobs.
