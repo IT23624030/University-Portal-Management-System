@@ -19,6 +19,7 @@ UniHub is an enterprise-grade platform built to solve the fragmentation of unive
 
 
 🛠️ Tech Stack:
+
 Frontend: React 19, Tailwind CSS v4, Framer Motion (for premium animations), Vite.
 
 Backend: Node.js, Express.js, Socket.io (Real-time updates).
