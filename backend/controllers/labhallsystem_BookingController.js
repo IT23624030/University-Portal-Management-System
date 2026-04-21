@@ -1,8 +1,11 @@
 const Booking = require('../models/labhallsystem_Booking');
 const Room = require('../models/labhallsystem_Room');
 const crypto = require('crypto');
+ Exam-Management
+
 const User = require('../models/User');
 const sendEmail = require('../utils/sendEmail');
+ main
 
 exports.createBooking = async (req, res) => {
     const { roomId, date, startTime, endTime, recurrence, recurrenceWeeks = 12 } = req.body;
@@ -52,6 +55,8 @@ exports.createBooking = async (req, res) => {
         }
 
         const savedBookings = await Booking.insertMany(bookingsToCreate);
+ Exam-Management
+
 
         // Send Email Confirmation to Lecturer
         const lecturer = await User.findById(req.user._id);
@@ -79,6 +84,7 @@ exports.createBooking = async (req, res) => {
             });
         }
 
+ main
         res.status(201).json(savedBookings);
     } catch (error) {
         res.status(500).json({ message: error.message });

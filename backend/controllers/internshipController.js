@@ -1,7 +1,10 @@
 const Internship = require('../models/Internship');
 const Application = require('../models/Application');
+ Exam-Management
+
 const Conversation = require('../models/lostfoundConversation');
 const Message = require('../models/lostfoundMessage');
+ main
 
 // @desc    Create a new internship posting
 // @route   POST /api/internships
@@ -111,6 +114,8 @@ const withdrawApplication = async (req, res) => {
     }
 };
 
+ Exam-Management
+
 // @desc    Update cover letter of own application
 // @route   PUT /api/internships/applications/:appId
 // @access  Private (Student)
@@ -150,17 +155,22 @@ const deleteApplication = async (req, res) => {
     }
 };
 
+ main
 // @desc    Get logged-in student's applications
 // @route   GET /api/internships/my-applications
 // @access  Private (Student)
 const getMyApplications = async (req, res) => {
     try {
         const applications = await Application.find({ applicantId: req.user._id })
+ Exam-Management
+            .populate('internshipId', 'title company location type deadline stipend')
+
             .populate({
                 path: 'internshipId',
                 select: 'title company location type deadline stipend postedBy',
                 populate: { path: 'postedBy', select: '_id name email' }
             })
+ main
             .sort({ createdAt: -1 });
         res.json(applications);
     } catch (error) {
@@ -277,6 +287,8 @@ const getSavedInternships = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+ Exam-Management
 
 // @desc    Update an internship
 // @route   PUT /api/internships/:id
@@ -398,23 +410,30 @@ const sendInternshipMessage = async (req, res) => {
     }
 };
 
+ main
 module.exports = {
     createInternship,
     getAllInternships,
     getInternshipById,
     applyToInternship,
     withdrawApplication,
+ Exam-Management
+
     updateApplication,
     deleteApplication,
+ main
     getMyApplications,
     getApplicationsForInternship,
     updateApplicationStatus,
     getOrgDashboard,
     toggleBookmark,
     getSavedInternships,
+ Exam-Management
+
     updateInternship,
     deleteInternship,
     getOrCreateInternshipConversation,
     getInternshipMessages,
     sendInternshipMessage
+ main
 };

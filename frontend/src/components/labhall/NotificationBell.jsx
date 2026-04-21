@@ -70,8 +70,11 @@ const NotificationBell = () => {
         catch { return []; }
     });
     const panelRef = useRef(null);
+ Exam-Management
+
     const bellRef = useRef(null);
     const [panelPos, setPanelPos] = useState({ top: 0, right: 0 });
+ main
     const headers = { Authorization: `Bearer ${user.token}` };
 
     useEffect(() => {
@@ -95,15 +98,21 @@ const NotificationBell = () => {
 
     // Close on outside click
     useEffect(() => {
+ Exam-Management
+        const handler = (e) => { if (panelRef.current && !panelRef.current.contains(e.target)) setOpen(false); };
+
         const handler = (e) => {
             if (
                 panelRef.current && !panelRef.current.contains(e.target) &&
                 bellRef.current && !bellRef.current.contains(e.target)
             ) setOpen(false);
         };
+ main
         document.addEventListener('mousedown', handler);
         return () => document.removeEventListener('mousedown', handler);
     }, []);
+
+ Exam-Management
 
     const handleBellClick = () => {
         if (bellRef.current) {
@@ -116,11 +125,14 @@ const NotificationBell = () => {
         setOpen(o => !o);
     };
 
+ main
     const dismiss = (id) => {
         const updated = [...dismissed, id];
         setDismissed(updated);
         localStorage.setItem('labhall_dismissed_notifs', JSON.stringify(updated));
     };
+
+ Exam-Management
 
     const dismissAll = () => {
         const allIds = notifications.map(n => n.id);
@@ -134,14 +146,21 @@ const NotificationBell = () => {
         return d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     };
 
+ main
     const visible = notifications.filter(n => !dismissed.includes(n.id));
     const unread = visible.length;
 
     return (
+ Exam-Management
+        <div className="relative" ref={panelRef}>
+            <button
+                onClick={() => setOpen(o => !o)}
+
         <div className="relative">
             <button
                 ref={bellRef}
                 onClick={handleBellClick}
+ main
                 className="relative w-10 h-10 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-center hover:border-indigo-300 transition-all"
             >
                 <Bell className="w-5 h-5 text-gray-600" />
@@ -153,6 +172,20 @@ const NotificationBell = () => {
             </button>
 
             {open && (
+ Exam-Management
+                <div className="absolute right-0 top-14 w-80 bg-white rounded-3xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
+                    <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+                        <h3 className="font-black text-gray-800">Notifications</h3>
+                        {dismissed.length > 0 && (
+                            <button onClick={() => { setDismissed([]); localStorage.removeItem('labhall_dismissed_notifs'); }}
+                                className="text-[10px] font-black text-indigo-500 hover:underline uppercase tracking-wide">
+                                Clear All
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="max-h-80 overflow-y-auto">
+
                 <div
                     ref={panelRef}
                     style={{ position: 'fixed', top: panelPos.top, right: panelPos.right, zIndex: 99999 }}
@@ -179,6 +212,7 @@ const NotificationBell = () => {
 
                     {/* Scrollable body */}
                     <div style={{ maxHeight: '420px', overflowY: 'auto' }}>
+ main
                         {visible.length === 0 ? (
                             <div className="py-10 text-center">
                                 <CheckCircle className="w-8 h-8 text-gray-200 mx-auto mb-2" />
@@ -187,13 +221,21 @@ const NotificationBell = () => {
                         ) : (
                             visible.map(n => (
                                 <div key={n.id} className="flex items-start gap-3 p-4 hover:bg-gray-50 transition-all border-b border-gray-50 last:border-0">
+ Exam-Management
+                                    <div className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
+
                                     <div className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+ main
                                         {typeIcon(n.type)}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-xs font-black text-gray-800 leading-snug">{n.title}</p>
+ Exam-Management
+                                        <p className="text-[11px] text-gray-400 font-medium truncate">{n.body}</p>
+
                                         <p className="text-[11px] text-gray-500 font-medium mt-0.5">{n.body}</p>
                                         <p className="text-[10px] text-gray-300 font-medium mt-1">{formatTime(n.time)}</p>
+ main
                                     </div>
                                     <button onClick={() => dismiss(n.id)}
                                         className="p-1 rounded-lg hover:bg-gray-100 text-gray-300 hover:text-gray-500 transition-all flex-shrink-0">
