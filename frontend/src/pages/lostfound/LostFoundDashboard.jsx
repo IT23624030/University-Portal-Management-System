@@ -11,7 +11,7 @@ import autoTable from 'jspdf-autotable';
 import QRCode from "react-qr-code";
 import { AuthContext } from '../../context/AuthContext';
 import Swal from 'sweetalert2';
-import ChatWindow from '../../components/lostfound/lost&found_ChatWindow.jsx';
+import ChatWindow from '../../components/lostfound/LostFoundChatWindow.jsx';
 
 // ----------------------------------------------------------------------
 // Reporting Modal Component

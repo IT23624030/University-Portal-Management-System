@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/lost&found_Controller');
+const controller = require('../controllers/lostfoundController');
 const { protect } = require('../middleware/authMiddleware');
 
-const upload = require('../utils/lost&found_upload');
+const upload = require('../utils/lostfoundUpload');
 
 // Item Routes
 router.get('/', protect, controller.getAllItems);
