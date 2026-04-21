@@ -3,27 +3,51 @@ import { AuthProvider, AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+ Exam-Management
+
+import { BookOpen, Shield, ChevronRight } from "lucide-react";
+ main
 
 // Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import InternshipBoard from "./pages/internship/InternshipBoard";
+ Exam-Management
 import InternshipDetail from "./pages/internship/InternshipDetail";
+
+import InternshipDetails from "./pages/internship/InternshipDetails";
+ main
 import MyApplications from "./pages/internship/MyApplications";
 import CVBuilder from "./pages/internship/CVBuilder";
 import OrgDashboard from "./pages/internship/OrgDashboard";
 import SavedInternships from "./pages/internship/SavedInternships";
 import SkillMarketplace from "./pages/skills/SkillMarketplace";
 import ExamsModule from "./pages/exams/OnExam_ExamsModule";
+ Exam-Management
 import BookingDashboard from "./pages/labhall/BookingDashboard";
 import AnalyticsDashboard from "./pages/labhall/AnalyticsDashboard";
 import LabHallLogin from "./pages/labhall/Login";
+
+import OnKuppi_KuppiPage from "./pages/kuppi/OnKuppi_KuppiPage";
+import BookingDashboard from "./pages/labhall/BookingDashboard";
+import AnalyticsDashboard from "./pages/labhall/AnalyticsDashboard";
+import LabHallLogin from "./pages/labhall/Login";
+import LabHallRegister from "./pages/labhall/Register";
+ main
 import LostFoundDashboard from "./pages/lostfound/LostFoundDashboard";
 import EventDashboard from "./pages/events/EventDashboard";
 import EventManagement from "./pages/events/EventManagement";
 import AdminEventDashboard from "./pages/events/AdminEventDashboard";
+ Exam-Management
 import EventDetail from "./pages/events/EventDetail";
+
+import OrganizerAnalyticsDashboard from "./pages/events/OrganizerAnalyticsDashboard";
+import EventDetail from "./pages/events/EventDetail";
+import AdminDashboard from "./pages/AdminDashboard";
+
+import Landing from "./pages/Landing";
+ main
 
 function App() {
   return (
@@ -44,6 +68,7 @@ function AppRoutes() {
         {/* Landing/Root logic */}
         <Route index element={
           user ? (
+ Exam-Management
             <Navigate to="/dashboard" replace />
           ) : (
             <div className="flex flex-col items-center justify-center min-h-[65vh] text-center px-4">
@@ -63,19 +88,33 @@ function AppRoutes() {
                 </Link>
               </div>
             </div>
+
+            user.role === 'admin' ? <Navigate to="/admin/dashboard" replace /> : <Navigate to="/dashboard" replace />
+          ) : (
+            <Landing />
+ main
           )
         } />
 
         {/* Auth Routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+ Exam-Management
         <Route path="labhall/login" element={<LabHallLogin />} />
+
+        <Route path="facilities/login" element={<LabHallLogin />} />
+        <Route path="facilities/register" element={<LabHallRegister />} />
+ main
 
         {/* Protected Dashboard & Modules */}
         <Route path="dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         
         {/* Phase 2: Online Exams */}
         <Route path="exams/*" element={<ProtectedRoute><ExamsModule /></ProtectedRoute>} />
+ Exam-Management
+
+        <Route path="kuppi" element={<ProtectedRoute><OnKuppi_KuppiPage /></ProtectedRoute>} />
+ main
 
         {/* Phase 3: Lab Hall Booking System */}
         <Route path="facilities" element={<ProtectedRoute><BookingDashboard /></ProtectedRoute>} />
@@ -83,7 +122,11 @@ function AppRoutes() {
 
         {/* Phase 5: Internship & Skill Management */}
         <Route path="internships" element={<ProtectedRoute><InternshipBoard /></ProtectedRoute>} />
+ Exam-Management
         <Route path="internships/:id" element={<ProtectedRoute><InternshipDetail /></ProtectedRoute>} />
+
+        <Route path="internships/:id" element={<ProtectedRoute><InternshipDetails /></ProtectedRoute>} />
+ main
         <Route path="my-applications" element={<ProtectedRoute><MyApplications /></ProtectedRoute>} />
         <Route path="saved-internships" element={<ProtectedRoute><SavedInternships /></ProtectedRoute>} />
         <Route path="cv-builder" element={<ProtectedRoute><CVBuilder /></ProtectedRoute>} />
@@ -94,8 +137,15 @@ function AppRoutes() {
         {/* Phase 6: Event Management */}
         <Route path="events" element={<ProtectedRoute><EventDashboard /></ProtectedRoute>} />
         <Route path="events/:id" element={<ProtectedRoute><EventDetail /></ProtectedRoute>} />
+ Exam-Management
         <Route path="events/manage" element={<ProtectedRoute><EventManagement /></ProtectedRoute>} />
         <Route path="events/admin" element={<ProtectedRoute><AdminEventDashboard /></ProtectedRoute>} />
+
+        <Route path="events/manage" element={<ProtectedRoute allowedRoles={['organizer', 'event organizer']}><EventManagement /></ProtectedRoute>} />
+        <Route path="events/organizer-analytics" element={<ProtectedRoute allowedRoles={['organizer', 'event organizer']}><OrganizerAnalyticsDashboard /></ProtectedRoute>} />
+        <Route path="events/admin" element={<ProtectedRoute allowedRoles={['admin']}><AdminEventDashboard /></ProtectedRoute>} />
+        <Route path="admin/dashboard" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>} />
+ main
         
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
