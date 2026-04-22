@@ -23,6 +23,7 @@ import LostFoundDashboard from "./pages/lostfound/LostFoundDashboard";
 import EventDashboard from "./pages/events/EventDashboard";
 import EventManagement from "./pages/events/EventManagement";
 import AdminEventDashboard from "./pages/events/AdminEventDashboard";
+import OrganizerAnalyticsDashboard from "./pages/events/OrganizerAnalyticsDashboard";
 import EventDetail from "./pages/events/EventDetail";
 
 function App() {
@@ -94,8 +95,9 @@ function AppRoutes() {
         {/* Phase 6: Event Management */}
         <Route path="events" element={<ProtectedRoute><EventDashboard /></ProtectedRoute>} />
         <Route path="events/:id" element={<ProtectedRoute><EventDetail /></ProtectedRoute>} />
-        <Route path="events/manage" element={<ProtectedRoute><EventManagement /></ProtectedRoute>} />
-        <Route path="events/admin" element={<ProtectedRoute><AdminEventDashboard /></ProtectedRoute>} />
+        <Route path="events/manage" element={<ProtectedRoute allowedRoles={['organizer', 'event organizer']}><EventManagement /></ProtectedRoute>} />
+        <Route path="events/organizer-analytics" element={<ProtectedRoute allowedRoles={['organizer', 'event organizer']}><OrganizerAnalyticsDashboard /></ProtectedRoute>} />
+        <Route path="events/admin" element={<ProtectedRoute allowedRoles={['admin']}><AdminEventDashboard /></ProtectedRoute>} />
         
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />

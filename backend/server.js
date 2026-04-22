@@ -14,6 +14,7 @@ const labHallAuthRoutes = require("./routes/labhallsystem_AuthRoutes");
 const labHallRoomRoutes = require("./routes/labhallsystem_RoomRoutes");
 const labHallBookingRoutes = require("./routes/labhallsystem_BookingRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const eventRequestRoutes = require("./routes/eventRequestRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes");
 
@@ -31,13 +32,13 @@ const { startBoostJob } = require("./jobs/boostJob");
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected Successfully");
+    console.log("Γ£à MongoDB Connected Successfully");
     startExpiryJob();
     startReminderJob();
     startBoostJob();
   })
   .catch(err => {
-    console.error("❌ MongoDB Connection Error:", err.message);
+    console.error("Γ¥î MongoDB Connection Error:", err.message);
     console.error("Please check your internet connection and MongoDB Atlas IP whitelist.");
   });
 
@@ -49,6 +50,7 @@ app.use("/api/labhall/rooms", labHallRoomRoutes);
 app.use("/api/labhall/bookings", labHallBookingRoutes);
 app.use("/api/labhall/issues", require("./routes/labhallsystem_IssueRoutes"));
 app.use("/api/events", eventRoutes);
+app.use("/api/event-requests", eventRequestRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
